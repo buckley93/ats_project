@@ -1,0 +1,9 @@
+Flask
+Flask-Cors
+Flask-RESTful
+Flask-JWT-Extended
+Flask-SQLAlchemy
+mysqlclient
+scikit-learn
+pandas
+python-dotenv
