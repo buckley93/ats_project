@@ -1,29 +1,42 @@
-from flask import Blueprint, request, jsonify
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_jwt_extended import create_access_token
-from models.user import db, User
+from fastapi import APIRouter, HTTPException
+from models.user import RegisterRequest, User
+from passlib.context import CryptContext
+from sqlalchemy.orm import Session
+from fastapi import Depends
+from db import get_db
 
-auth_bp = Blueprint('auth', __name__)
+router = APIRouter()
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-@auth_bp.route('/api/register', methods=['POST'])
-def register():
-    data = request.get_json()
-    username = data.get('username')
-    password = data.get('password')
-    if User.query.filter_by(username=username).first():
-        return jsonify({'error': 'Username already exists'}), 400
-    user = User(username=username, password_hash=generate_password_hash(password), role='user')
-    db.session.add(user)
-    db.session.commit()
-    return jsonify({'message': 'User registered successfully'})
+@router.post("/api/register")
+async def register(data: RegisterRequest, db: Session = Depends(get_db)):
+    existing_user = db.query(User).filter(User.username == data.username).first()
+    if existing_user:
+        raise HTTPException(status_code=400, detail="Username already exists")
+    # Debug: print password lengths
+    print("Password length:", len(data.password))
+    print("Truncated password length:", len(data.password[:72]))
+    # Truncate password to 72 characters for bcrypt
+    hashed_password = pwd_context.hash(data.password[:72])
+    user = User(username=data.username, password_hash=hashed_password, role="user")
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+    return {"message": "User registered successfully"}
 
-@auth_bp.route('/api/login', methods=['POST'])
-def login():
-    data = request.get_json()
-    username = data.get('username')
-    password = data.get('password')
-    user = User.query.filter_by(username=username).first()
-    if user and check_password_hash(user.password_hash, password):
-        access_token = create_access_token(identity=user.id)
-        return jsonify({'access_token': access_token})
-    return jsonify({'error': 'Invalid credentials'}), 401
+@router.post("/api/login")
+async def login(data: RegisterRequest, db: Session = Depends(get_db)):
+    print("Login attempt:", data.username, data.password)
+    user = db.query(User).filter(User.username == data.username).first()
+    print("User from DB:", user)
+    if not user or not pwd_context.verify(data.password[:72], user.password_hash):
+        print("Login failed: invalid credentials")
+        raise HTTPException(status_code=401, detail="Invalid username or password")
+    print("Login successful")
+    # Return a fake access_token for frontend compatibility
+    return {
+        "message": "Login successful",
+        "user_id": user.id,
+        "role": user.role,
+        "access_token": f"fake-token-for-{user.username}"
+    }

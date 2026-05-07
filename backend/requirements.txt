@@ -1,9 +1,7 @@
-Flask
-Flask-Cors
-Flask-RESTful
-Flask-JWT-Extended
-Flask-SQLAlchemy
-mysqlclient
-scikit-learn
-pandas
+fastapi
+uvicorn
+sqlalchemy
+pymysql
 python-dotenv
+passlib
+bcrypt

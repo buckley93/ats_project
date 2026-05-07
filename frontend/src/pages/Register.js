@@ -18,7 +18,15 @@ function Register({ onRegister, onGoToLogin }) {
         onRegister();
       }, 1000);
     } catch (err) {
-      setError(err.response?.data?.error || 'Registration failed.');
+      // Log error for debugging
+      console.error('Registration error:', err);
+      // Show all possible backend error messages
+      setError(
+        err.response?.data?.error ||
+        err.response?.data?.detail ||
+        err.message ||
+        'Registration failed.'
+      );
     }
   };
 
