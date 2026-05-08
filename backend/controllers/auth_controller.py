@@ -36,7 +36,7 @@ async def login(data: RegisterRequest, db: Session = Depends(get_db)):
     # Return a fake access_token for frontend compatibility
     return {
         "message": "Login successful",
-        "user_id": user.id,
+        "user_id": user.user_id,
         "role": user.role,
         "access_token": f"fake-token-for-{user.username}"
     }
