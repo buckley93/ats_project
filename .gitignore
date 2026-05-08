@@ -67,6 +67,7 @@ coverage.xml
 # Test
 junit-*.xml
 # Local env
+backend/resources/config
 backend/ats_backend/Lib/site-packages/
 backend/ats_backend/Scripts/
 backend/ats_backend/Include/

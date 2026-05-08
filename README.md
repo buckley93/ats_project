@@ -35,6 +35,7 @@ ats_project/
 ```bash
 cd backend
 python -m venv venv
+source venv/bin/activate  # On Mac/Linux
 venv\Scripts\activate  # On Windows
 pip install -r requirements.txt
 # Edit database connection in db.py if needed
@@ -42,7 +43,31 @@ uvicorn app:app --reload
 ```
 
 
-### 3. Frontend (React)
+### 3. Database Migrations (Alembic)
+
+Database schema changes are managed with Alembic. Run these from the `backend/` directory with the venv active.
+
+**First-time setup** (after dropping any existing tables):
+```bash
+venv/bin/alembic revision --autogenerate -m "initial schema"
+venv/bin/alembic upgrade head
+```
+
+**After any model change** (new column, rename, new table):
+```bash
+venv/bin/alembic revision --autogenerate -m "describe your change"
+venv/bin/alembic upgrade head
+```
+
+**Other useful commands:**
+```bash
+venv/bin/alembic current          # show current migration version
+venv/bin/alembic history          # list all migrations
+venv/bin/alembic downgrade -1     # roll back one migration
+```
+
+
+### 4. Frontend (React)
 ```bash
 cd frontend
 npm install
