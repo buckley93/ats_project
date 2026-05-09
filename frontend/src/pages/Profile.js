@@ -1,5 +1,6 @@
 import React, { useRef, useState }  from 'react';
 import { uploadResume } from '../api/user';
+import Navbar from '../components/Navbar';
 
 function Profile() {
   const fileInput = useRef();
