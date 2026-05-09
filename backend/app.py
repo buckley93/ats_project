@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from controllers.auth_controller import router as auth_router
 from controllers.job_controller import router as job_router
+from controllers.job_application_controller import router as job_application_router
 from db import init_db
 from middleware.json_sanitizer import JSONSanitizerMiddleware
 
@@ -24,6 +25,7 @@ app.add_middleware(
 )
 app.include_router(auth_router)
 app.include_router(job_router)
+app.include_router(job_application_router)
 
 @app.get("/api/health")
 def health():

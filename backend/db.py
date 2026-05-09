@@ -19,6 +19,7 @@ Base = declarative_base()
 def init_db():
     import models.user
     import models.jobs
+    import models.job_application
     Base.metadata.create_all(bind=engine)
 
 def get_db():
