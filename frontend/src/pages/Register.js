@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { register as registerApi } from '../api/auth';
+import { register as registerApi } from '../api/user';
 
 function Register({ onRegister, onGoToLogin }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
@@ -12,21 +13,26 @@ function Register({ onRegister, onGoToLogin }) {
     setError('');
     setSuccess('');
     try {
-      const data = await registerApi(username, password);
+      const data = await registerApi(username, password, email);
       setSuccess(data.message || 'Registration successful!');
+      localStorage.setItem('user_id', data.user_id);
       setTimeout(() => {
         onRegister();
       }, 1000);
     } catch (err) {
       // Log error for debugging
       console.error('Registration error:', err);
-      // Show all possible backend error messages
-      setError(
-        err.response?.data?.error ||
-        err.response?.data?.detail ||
-        err.message ||
-        'Registration failed.'
-      );
+      // Handle FastAPI validation errors (422)
+      if (err.response && err.response.status === 422 && Array.isArray(err.response.data?.detail)) {
+        setError(err.response.data.detail.map((e, idx) => <div key={idx}>{e.msg} ({e.loc?.join('.')})</div>));
+      } else {
+        setError(
+          err.response?.data?.error ||
+          err.response?.data?.detail ||
+          err.message ||
+          'Registration failed.'
+        );
+      }
     }
   };
 
@@ -52,6 +58,16 @@ function Register({ onRegister, onGoToLogin }) {
               placeholder="Password"
               value={password}
               onChange={e => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-3">
+            <input
+              type="email"
+              className="form-control"
+              placeholder="Email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
               required
             />
           </div>

@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from controllers.auth_controller import router as auth_router
+from controllers.user_controller import router as user_router
 from controllers.job_controller import router as job_router
 from db import init_db
 from middleware.json_sanitizer import JSONSanitizerMiddleware
@@ -22,7 +22,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-app.include_router(auth_router)
+app.include_router(user_router)
 app.include_router(job_router)
 
 @app.get("/api/health")
