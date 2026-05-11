@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { login as loginApi } from '../api/auth';
+import { login as loginApi } from '../api/user';
 
 function Login({ onLogin, onGoToRegister }) {
+  const [user_id, setUserId] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');

@@ -74,8 +74,24 @@ npm install
 npm start
 ```
 
+### 5. Resume Uploads
 
-### 4. Access
+- Users can upload resumes via the `/api/users/upload_resume` endpoint.
+- Uploaded resumes are stored in `backend/uploads/` as `<username>_<filename>`.
+- The user's `resume_path` is updated in the database.
+- When a new resume is uploaded for a user, any previous resume files for that user are deleted automatically.
+
+**Example upload (frontend):**
+```js
+const formData = new FormData();
+formData.append('file', file); // File object
+formData.append('user_id', userId); // User's ID
+await axios.post('http://localhost:8000/api/users/upload_resume', formData, {
+	headers: { 'Content-Type': 'multipart/form-data' }
+});
+```
+
+### 6. Access
 - FastAPI backend: http://localhost:8000/api/health
 - React frontend: http://localhost:3000
 
@@ -84,4 +100,5 @@ npm start
 **Note:**
 - Authentication uses password hashing with bcrypt (see requirements.txt).
 - Update database connection in `backend/db.py` as needed.
+- Resume upload and deletion logic is handled in `backend/services/user_service.py`.
 - This is a starter scaffold. Expand endpoints, models, and UI as needed.
