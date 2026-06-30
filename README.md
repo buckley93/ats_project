@@ -74,7 +74,25 @@ npm install
 npm start
 ```
 
-### 5. Resume Uploads
+### 5. Linting
+
+This project includes a linter for both the frontend and backend.
+
+**Frontend (ESLint):**
+```bash
+cd frontend
+npm run lint
+```
+
+**Backend (Ruff):**
+```bash
+cd backend
+.\ats_backend\Scripts\python -m ruff check .
+```
+
+These commands only report issues; they do not modify application code.
+
+### 6. Resume Uploads
 
 - Users can upload resumes via the `/api/users/upload_resume` endpoint.
 - Uploaded resumes are stored in `backend/uploads/` as `<username>_<filename>`.
@@ -91,7 +109,7 @@ await axios.post('http://localhost:8000/api/users/upload_resume', formData, {
 });
 ```
 
-### 6. Access
+### 7. Access
 - FastAPI backend: http://localhost:8000/api/health
 - React frontend: http://localhost:3000
 

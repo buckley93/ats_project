@@ -3,9 +3,9 @@ import os
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError
 from fastapi import HTTPException
-from models.user import User, registerRequest, userUpdate, createResume, updateResume, loginRequest
 from fastapi import File
 from passlib.context import CryptContext
+from models.user import User, registerRequest, userUpdate, createResume, updateResume, loginRequest
 
 logger = logging.getLogger(__name__)
 UPLOAD_DIR = "uploads/"
