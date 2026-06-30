@@ -74,23 +74,38 @@ npm install
 npm start
 ```
 
+### 4a. Run Full Stack With One Command
+
+From the repository root:
+
+```bash
+npm run dev
+```
+
+This starts both the FastAPI backend (uvicorn) and the React frontend together.
+
 ### 5. Linting
 
 This project includes a linter for both the frontend and backend.
 
-**Frontend (ESLint):**
+**Run both linters from the repository root:**
 ```bash
-cd frontend
 npm run lint
 ```
 
-**Backend (Ruff):**
+**Run frontend only (ESLint):**
 ```bash
-cd backend
-.\ats_backend\Scripts\python -m ruff check .
+npm run lint:frontend
 ```
 
-These commands only report issues; they do not modify application code.
+**Run backend only (Ruff):**
+```bash
+npm run lint:backend
+```
+
+`lint:backend` is configured to work on Windows, macOS, and Linux by selecting the correct virtual environment Python path automatically.
+
+These commands report issues and return a non-zero exit code when lint errors are found; they do not modify application code.
 
 ### 6. Resume Uploads
 

@@ -5,7 +5,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from fastapi import HTTPException
 from fastapi import File
 from passlib.context import CryptContext
-from models.user import User, registerRequest, userUpdate, createResume, updateResume, loginRequest
+from models.user import User, loginRequest
 
 logger = logging.getLogger(__name__)
 UPLOAD_DIR = "uploads/"

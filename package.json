@@ -1,8 +1,9 @@
 {
   "scripts": {
+    "dev": "node scripts/dev.js",
     "lint": "node -e \"const { spawnSync } = require('child_process'); let failed = 0; if (spawnSync('npm', ['run', 'lint:frontend'], { stdio: 'inherit', shell: true }).status !== 0) failed = 1; if (spawnSync('npm', ['run', 'lint:backend'], { stdio: 'inherit', shell: true }).status !== 0) failed = 1; process.exit(failed);\"",
     "lint:frontend": "npm --prefix frontend run lint",
-    "lint:backend": ".\\backend\\ats_backend\\Scripts\\python -m ruff check backend"
+    "lint:backend": "node -e \"const { spawnSync } = require('child_process'); const py = process.platform === 'win32' ? '.\\\\backend\\\\ats_backend\\\\Scripts\\\\python.exe' : './backend/ats_backend/bin/python'; const result = spawnSync(py, ['-m', 'ruff', 'check', '--config', 'backend/pyproject.toml', 'backend'], { stdio: 'inherit', shell: true }); process.exit(result.status || 0);\""
   },
   "dependencies": {
     "bootstrap": "^5.3.8"

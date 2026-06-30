@@ -1,5 +1,5 @@
-from fastapi import APIRouter, HTTPException, UploadFile, File, Form
-from models.user import loginRequest, registerRequest, User, UserResponse, userUpdate
+from fastapi import APIRouter, UploadFile, File, Form
+from models.user import loginRequest, registerRequest, UserResponse, userUpdate
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 from fastapi import Depends
