@@ -33,7 +33,7 @@ export const uploadResume = async (file) => {
 export const deleteAccount = async () => {
   const user_id = localStorage.getItem('user_id');
   try {
-    const response = await axios.delete(`${API_URL}/${user_id}`);
+    await axios.delete(`${API_URL}/${user_id}`);
     localStorage.removeItem('user_id');
     window.location.href = '/login'; // Redirect to login page after account deletion
     return null;

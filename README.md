@@ -74,7 +74,40 @@ npm install
 npm start
 ```
 
-### 5. Resume Uploads
+### 4a. Run Full Stack With One Command
+
+From the repository root:
+
+```bash
+npm run dev
+```
+
+This starts both the FastAPI backend (uvicorn) and the React frontend together.
+
+### 5. Linting
+
+This project includes a linter for both the frontend and backend.
+
+**Run both linters from the repository root:**
+```bash
+npm run lint
+```
+
+**Run frontend only (ESLint):**
+```bash
+npm run lint:frontend
+```
+
+**Run backend only (Ruff):**
+```bash
+npm run lint:backend
+```
+
+`lint:backend` is configured to work on Windows, macOS, and Linux by selecting the correct virtual environment Python path automatically.
+
+These commands report issues and return a non-zero exit code when lint errors are found; they do not modify application code.
+
+### 6. Resume Uploads
 
 - Users can upload resumes via the `/api/users/upload_resume` endpoint.
 - Uploaded resumes are stored in `backend/uploads/` as `<username>_<filename>`.
@@ -91,7 +124,7 @@ await axios.post('http://localhost:8000/api/users/upload_resume', formData, {
 });
 ```
 
-### 6. Access
+### 7. Access
 - FastAPI backend: http://localhost:8000/api/health
 - React frontend: http://localhost:3000
 

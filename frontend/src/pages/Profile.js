@@ -1,21 +1,15 @@
-import React, { useRef, useState }  from 'react';
+import React, { useRef }  from 'react';
 import { uploadResume } from '../api/user';
-import Navbar from '../components/Navbar';
 
 function Profile() {
+  const setError = "";
   const fileInput = useRef();
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-
   const handleUpload = async (e) => {
     e.preventDefault();
     const file = fileInput.current.files[0];
     if (!file) return;
-    setError('');
-    setSuccess('');
     try {
-      const data = await uploadResume(file);
-      setSuccess(data.message || 'Resume uploaded successfully!');
+      await uploadResume(file);
       setTimeout(() => {
         // Optionally, you can clear the file input after successful upload
         fileInput.current.value = '';

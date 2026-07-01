@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { login as loginApi } from '../api/user';
 
 function Login({ onLogin, onGoToRegister }) {
-  const [user_id, setUserId] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -50,7 +49,7 @@ function Login({ onLogin, onGoToRegister }) {
           </div>
           <button type="submit" className="btn btn-primary w-100 mb-2">Login</button>
         </form>
-        <button className="btn btn-link w-100" type="button" onClick={onGoToRegister}>Don't have an account? Register</button>
+        <button className="btn btn-link w-100" type="button" onClick={onGoToRegister}>Don&apos;t have an account? Register</button>
         {error && <div className="alert alert-danger mt-3 p-2 text-center">{error}</div>}
       </div>
     </div>

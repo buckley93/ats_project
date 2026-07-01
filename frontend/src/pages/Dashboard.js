@@ -4,7 +4,7 @@ import { deleteAccount } from '../api/user';
 function Dashboard() {
   const [error, setError] = useState('');
 
-  const handleDeleteAccount = async (e) => {
+  const handleDeleteAccount = async () => {
     try {
       await deleteAccount();
       setTimeout(() => {
