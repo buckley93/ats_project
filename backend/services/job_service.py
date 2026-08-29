@@ -16,7 +16,6 @@ def get_all_jobs(db: Session) -> list[Job]:
         logger.error("Failed to fetch jobs: %s", e)
         raise HTTPException(status_code=500, detail="Failed to retrieve jobs")
 
-
 def get_job_by_id(job_id: int, db: Session) -> Job:
     try:
         job = db.query(Job).filter(Job.id == job_id).first()
