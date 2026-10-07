@@ -2,8 +2,14 @@ fastapi
 uvicorn
 sqlalchemy
 pymysql
+cryptography
 python-dotenv
 passlib
 bcrypt
 alembic
 ruff
+requests
+spacy
+pypdf
+spacy-layout
+rake-spacy
